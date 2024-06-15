@@ -2,5 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   css: ["@techmely/reset-css", "~/assets/scss/main.scss"],
-  modules: ["nuxt-icon", "@pinia/nuxt"],
+  modules: ["nuxt-icon", "@pinia/nuxt", "@sidebase/nuxt-auth"],
+  auth: {
+    globalAppMiddleware: true,
+    provider: {
+      type: "authjs",
+    },
+  },
 });
