@@ -32,7 +32,9 @@ export const raceTrackTable = pgTable("race_track", {
 
 export const raceDetailTable = pgTable("race_detail", {
   id: serial("id").primaryKey(),
-  raceTrackId: integer("race_track_id").references(() => raceTrackTable.id),
+  raceTrackId: integer("race_track_id")
+    .notNull()
+    .references(() => raceTrackTable.id),
   distance: integer("distance"),
   cource: courceEnum("cource"),
   trackCondition: trackConditionEnum("track_condition"),
@@ -57,8 +59,12 @@ export const betTypeTable = pgTable("bet_type", {
 
 export const betTable = pgTable("bet", {
   id: serial("id").primaryKey(),
-  raceTrackId: integer("race_track_id").references(() => raceTrackTable.id),
-  betTypeId: integer("bet_type_id").references(() => betTypeTable.id),
+  raceTrackId: integer("race_track_id")
+    .notNull()
+    .references(() => raceTrackTable.id),
+  betTypeId: integer("bet_type_id")
+    .notNull()
+    .references(() => betTypeTable.id),
   ticket: integer("ticket").notNull(),
   amount: integer("amount").notNull(),
   isWin: boolean("is_win").notNull().default(false),
@@ -72,7 +78,9 @@ export const betTable = pgTable("bet", {
 
 export const payoutTable = pgTable("payout", {
   id: serial("id").primaryKey(),
-  betId: integer("bet_id").references(() => betTable.id),
+  betId: integer("bet_id")
+    .notNull()
+    .references(() => betTable.id),
   payoutAmount: integer("payout_amount"),
   createdAt: timestamp("created_at", { mode: "string" })
     .notNull()
