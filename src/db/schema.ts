@@ -19,33 +19,16 @@ export const trackConditionEnum = pgEnum("track_condition", [
   "不良",
 ]);
 
-export const betTypeNameEnum = pgEnum("bet_type_name", [
-  "単勝",
-  "複勝",
-  "ワイド",
-  "馬単",
-  "3連複",
-  "3連単",
-]);
-
-export const raceTrackTable = pgTable(
-  "race_track",
-  {
-    id: serial("id").primaryKey(),
-    name: text("name").notNull(),
-    createdAt: timestamp("created_at", { mode: "string" })
-      .notNull()
-      .default(sql`now()`),
-    updatedAt: timestamp("updated_at", { mode: "string" })
-      .notNull()
-      .default(sql`now()`),
-  },
-  (table) => {
-    return {
-      idIdx: index("id_idx").on(table.id),
-    };
-  }
-);
+export const raceTrackTable = pgTable("race_track", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at", { mode: "string" })
+    .notNull()
+    .default(sql`now()`),
+  updatedAt: timestamp("updated_at", { mode: "string" })
+    .notNull()
+    .default(sql`now()`),
+});
 
 export const raceDetailTable = pgTable("race_detail", {
   id: serial("id").primaryKey(),
