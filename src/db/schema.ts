@@ -47,7 +47,7 @@ export const raceTrackTable = pgTable(
   }
 );
 
-export const reaceDetailTable = pgTable("race_detail", {
+export const raceDetailTable = pgTable("race_detail", {
   id: serial("id").primaryKey(),
   raceTrackId: integer("race_track_id").references(() => raceTrackTable.id),
   distance: integer("distance"),
@@ -61,13 +61,36 @@ export const reaceDetailTable = pgTable("race_detail", {
     .default(sql`now()`),
 });
 
-export const betType = pgTable("bet_type", {
+export const betTypeTable = pgTable("bet_type", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at", { mode: "string" })
+    .notNull()
+    .default(sql`now()`),
+  updatedAt: timestamp("updated_at", { mode: "string" })
+    .notNull()
+    .default(sql`now()`),
+});
+
+export const betTable = pgTable("bet", {
   id: serial("id").primaryKey(),
   raceTrackId: integer("race_track_id").references(() => raceTrackTable.id),
-  betTypeName: betTypeNameEnum("bet_type_name"),
-  ticket: integer("ticket"),
-  amout: integer("amount"),
+  betTypeId: integer("bet_type_id").references(() => betTypeTable.id),
+  ticket: integer("ticket").notNull(),
+  amount: integer("amount").notNull(),
   isWin: boolean("is_win").notNull().default(false),
+  createdAt: timestamp("created_at", { mode: "string" })
+    .notNull()
+    .default(sql`now()`),
+  updatedAt: timestamp("updated_at", { mode: "string" })
+    .notNull()
+    .default(sql`now()`),
+});
+
+export const payoutTable = pgTable("payout", {
+  id: serial("id").primaryKey(),
+  betId: integer("bet_id").references(() => betTable.id),
+  payoutAmount: integer("payout_amount"),
   createdAt: timestamp("created_at", { mode: "string" })
     .notNull()
     .default(sql`now()`),
