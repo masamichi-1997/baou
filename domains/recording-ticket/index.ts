@@ -1,19 +1,22 @@
-import { selectBedType, selectRaceTrack } from "./query";
+import { selectBetType, selectRaceTrack } from "./query";
 
 export const readRaceTrack = () => {
   return selectRaceTrack();
 };
 
-export const readBedType = () => {
-  return selectBedType();
+export const readBetType = () => {
+  return selectBetType();
 };
 
 export const getTicketRegistrationInfo = async () => {
   try {
     const raceTrack = await readRaceTrack();
-    const bedType = await readBedType();
+    const betType = await readBetType();
 
-    return { raceTrack, bedType };
+    return {
+      raceTrackData: raceTrack,
+      bedTypeData: betType
+    }
   } catch (error) {
     console.error("チケット登録情報の取得中にエラーが発生しました:", error);
     throw new Error("チケット登録情報の取得に失敗しました");

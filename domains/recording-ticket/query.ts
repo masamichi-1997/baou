@@ -4,6 +4,6 @@ export const selectRaceTrack = () => {
   return db.query.raceTrackTable.findMany();
 };
 
-export const selectBedType = () => {
+export const selectBetType = () => {
   return db.query.betTypeTable.findMany();
 };
