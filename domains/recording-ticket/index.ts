@@ -13,10 +13,7 @@ export const getTicketRegistrationInfo = async () => {
     const raceTrack = await readRaceTrack();
     const betType = await readBetType();
 
-    return {
-      raceTrackData: raceTrack,
-      bedTypeData: betType
-    }
+    return { raceTrack, betType };
   } catch (error) {
     console.error("チケット登録情報の取得中にエラーが発生しました:", error);
     throw new Error("チケット登録情報の取得に失敗しました");
