@@ -15,15 +15,15 @@ const raceTrack = ref();
 const betType = ref();
 
 const fetchRaceTrackAndBetType = async () => {
-  const { data } = await useFetch("/api/recording-ticket", {
+  const data  = await $fetch("/api/recording-ticket", {
     method: "get",
   });
 
-  if (!data.value) return;
-
-  raceTrack.value = data.value.raceTrack;
-  betType.value = data.value.betType;
+  raceTrack.value = data.raceTrack;
+  betType.value = data.betType;
 };
 
-await fetchRaceTrackAndBetType();
+onMounted(async () => {
+  await fetchRaceTrackAndBetType();
+});
 </script>
