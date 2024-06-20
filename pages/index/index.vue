@@ -1,23 +1,10 @@
 <template>
   <div>index</div>
-  {{ raceTrack }}
-  {{ betType }}
 
-  <ul>
-    <template v-for="(condition, index) in trackConditions" :key="index">
-      <li>
-        {{ condition }}
-      </li>
-    </template>
-  </ul>
-
-  <ul>
-    <template v-for="(course, index) in cources" :key="index">
-      <li>
-        {{ course }}
-      </li>
-    </template>
-  </ul>
+  <dropdown :options="raceTracks" />
+  <dropdown :options="betTypes" />
+  <dropdown :options="trackConditions" />
+  <dropdown :options="cources" />
 </template>
 
 <script lang="ts" setup>
@@ -29,18 +16,29 @@ definePageMeta({
 
 import { trackConditionEnum, courceEnum } from "~/src/db/schema";
 
-const raceTrack = ref();
-const betType = ref();
-const cources = courceEnum.enumValues;
-const trackConditions = trackConditionEnum.enumValues;
+// utils
+const createOption = (label: string, value?: string | number) => {
+  return { label, value: value ?? label };
+};
+
+const raceTracks = ref();
+const betTypes = ref();
+const cources = courceEnum.enumValues.map((val) => createOption(val));
+const trackConditions = trackConditionEnum.enumValues.map((val) =>
+  createOption(val)
+);
 
 const fetchRaceTrackAndBetType = async () => {
   const data = await $fetch("/api/recording-ticket", {
     method: "get",
   });
 
-  raceTrack.value = data.raceTrack;
-  betType.value = data.betType;
+  raceTracks.value = data.raceTrack.map((val) =>
+    createOption(val.name, val.id)
+  );
+  betTypes.value = data.betType.map((val) => 
+    createOption(val.name, val.id)
+  );
 };
 
 onMounted(async () => {
