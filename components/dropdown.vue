@@ -1,0 +1,44 @@
+<template>
+  <div>
+    <button @click="isOpen = !isOpen">
+      {{ selectedOption ? selectedOption.label : placeholder }}
+    </button>
+    
+    <ul v-if="isOpen">
+      <li
+        v-for="(option, index) in options"
+        :key="index"
+        @click="selectOption(option)"
+      >
+        {{ option.label }}
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script setup lang="ts">
+interface Option {
+  label: string,
+  value: string | number,
+}
+
+const emits = defineEmits();
+const { placeholder, options } = defineProps({
+  placeholder: {
+    type: String,
+    default: "項目を選んでください",
+  },
+  options: {
+    type: Array as () => Option[],
+    required: true,
+  },
+});
+
+const isOpen = ref(false);
+const selectedOption: Ref<Option | null> = ref(null);
+const selectOption = (option: Option): void => {
+  isOpen.value = !isOpen.value;
+  selectedOption.value = option;
+  emits("option-selected", selectedOption.value);
+};
+</script>
