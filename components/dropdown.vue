@@ -26,7 +26,7 @@ const emits = defineEmits();
 const { placeholder, options } = defineProps({
   placeholder: {
     type: String,
-    default: "項目を選んでください",
+    default: "未選択",
   },
   options: {
     type: Array as () => Option[],
@@ -39,6 +39,6 @@ const selectedOption: Ref<Option | null> = ref(null);
 const selectOption = (option: Option): void => {
   isOpen.value = !isOpen.value;
   selectedOption.value = option;
-  emits("option-selected", selectedOption.value);
+  emits("option-selected", selectedOption.value.value);
 };
 </script>
