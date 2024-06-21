@@ -1,4 +1,13 @@
+import { insertBet, insertRaceDetail } from "./command";
 import { selectBetType, selectRaceTrack } from "./query";
+
+export const createRaceDetail = () => {
+  return insertRaceDetail();
+};
+
+export const createBet = () => {
+  return insertBet();
+};
 
 export const readRaceTrack = () => {
   return selectRaceTrack();

@@ -38,6 +38,8 @@
       </template>
     </ul>
 
+    <button @click="handleAddRecord">追加</button>
+
     <div popover id="betModal">
       <div>
         <h3>方式を選択してください</h3>
@@ -139,6 +141,18 @@ const fetchRaceTrackAndBetType = async (): Promise<void> => {
   );
   betTypes.value = data.betType.map((val) => createOption(val.name, val.id));
 };
+
+const handleAddRecord = async () => {
+  const data = await $fetch("/api/recording-ticket/", {
+    method: "post",
+    body: {
+      form,
+    }
+  })
+
+  console.log(data)
+  return data
+}
 
 onMounted(() => {
   fetchRaceTrackAndBetType();
