@@ -17,6 +17,9 @@ dependencies:
   drizzle-orm:
     specifier: ^0.31.2
     version: 0.31.2(@opentelemetry/api@1.8.0)(postgres@3.4.4)(react@18.3.1)
+  drizzle-zod:
+    specifier: ^0.5.1
+    version: 0.5.1(drizzle-orm@0.31.2)(zod@3.23.8)
   next-auth:
     specifier: 4.21.1
     version: 4.21.1(next@13.5.6)(react-dom@18.3.1)(react@18.3.1)
@@ -32,6 +35,9 @@ dependencies:
   vue-router:
     specifier: ^4.3.3
     version: 4.3.3(vue@3.4.29)
+  zod:
+    specifier: ^3.23.8
+    version: 3.23.8
 
 devDependencies:
   '@sidebase/nuxt-auth':
@@ -3832,6 +3838,16 @@ packages:
       postgres: 3.4.4
       react: 18.3.1
 
+  /drizzle-zod@0.5.1(drizzle-orm@0.31.2)(zod@3.23.8):
+    resolution: {integrity: sha512-C/8bvzUH/zSnVfwdSibOgFjLhtDtbKYmkbPbUCq46QZyZCH6kODIMSOgZ8R7rVjoI+tCj3k06MRJMDqsIeoS4A==}
+    peerDependencies:
+      drizzle-orm: '>=0.23.13'
+      zod: '*'
+    dependencies:
+      drizzle-orm: 0.31.2(@opentelemetry/api@1.8.0)(postgres@3.4.4)(react@18.3.1)
+      zod: 3.23.8
+    dev: false
+
   /duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
@@ -7374,3 +7390,7 @@ packages:
       archiver-utils: 5.0.2
       compress-commons: 6.0.2
       readable-stream: 4.5.2
+
+  /zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+    dev: false
