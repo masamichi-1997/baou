@@ -8,6 +8,8 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
 export const courceEnum = pgEnum("cource", ["芝", "ダート"]);
 
@@ -45,6 +47,15 @@ export const raceDetailTable = pgTable("race_detail", {
     .default(sql`now()`),
 });
 
+export const raceDetailSchema = createInsertSchema(raceDetailTable).pick({
+  raceTrackId: true,
+  distance: true,
+  cource: true,
+  trackCondition: true,
+});
+
+export type raceDetailType = z.infer<typeof raceDetailSchema>;
+
 export const betTypeTable = pgTable("bet_type", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
@@ -74,6 +85,15 @@ export const betTable = pgTable("bet", {
     .notNull()
     .default(sql`now()`),
 });
+
+export const betSchema = createInsertSchema(betTable).pick({
+  raceTrackId: true,
+  betTypeId: true,
+  ticket: true,
+  amount: true,
+});
+
+export type betType = z.infer<typeof betSchema>;
 
 export const payoutTable = pgTable("payout", {
   id: serial("id").primaryKey(),
