@@ -1,17 +1,15 @@
 import { db } from "~/src/db";
-import { raceDetailTable } from "~/src/db/schema";
+import {
+  betTable,
+  raceDetailTable,
+  type betType,
+  type raceDetailType,
+} from "~/src/db/schema";
 
-export const insertRaceDetail = () => {
-  // return db.insert(raceDetailTable).values({
-  //   raceTrackId: 1,
-  //   distance: 1400,
-  //   cource: "ダート",
-  //   trackCondition: "不良",
-  // }).returning({
-    
-  // })
+export const insertRaceDetail = (raceDetail: raceDetailType) => {
+  return db.insert(raceDetailTable).values(raceDetail).returning();
 };
 
-export const insertBet = () => {
-  
-}
+export const insertBet = (bet: betType) => {
+  return db.insert(betTable).values(bet).returning();
+};
