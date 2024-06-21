@@ -25,8 +25,10 @@ export const readBetType = () => {
 
 export const getTicketRegistrationInfo = async () => {
   try {
-    const raceTrack = await readRaceTrack();
-    const betType = await readBetType();
+    const [raceTrack, betType] = await Promise.all([
+      readRaceTrack(),
+      readBetType(),
+    ]);
 
     return { raceTrack, betType };
   } catch (error) {
@@ -38,15 +40,9 @@ export const getTicketRegistrationInfo = async () => {
 export const registerBetRecord = async (registration: registrationType) => {
   try {
     const { raceDetail, bets } = registration;
+    const betsPromises = bets.map((bet) => createBet(bet));
 
-    await Promise.all([
-      createRaceDetail(raceDetail),
-      () => {
-        bets.map(async (bet) => {
-          await createBet(bet);
-        });
-      },
-    ]);
+    await Promise.all([createRaceDetail(raceDetail), ...betsPromises]);
   } catch (error) {
     console.error("登録中にエラーが発生しました:", error);
     throw new Error("レコードの登録に失敗しました");
