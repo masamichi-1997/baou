@@ -11,7 +11,7 @@
       />
     </div>
     <div>
-      <h3>走行距離を入力してください</h3>
+      <h3>レースの距離を入力してください</h3>
       <input type="number" v-model="form.distance" />
     </div>
     <div>
@@ -94,7 +94,7 @@ const form = reactive({
 
 const bet = reactive({
   raceTrackId: null,
-  betType: null,
+  betTypeId: null,
   ticket: null,
   amount: null,
 });
@@ -112,15 +112,15 @@ const handleTrackConditionSelected = (option: any) => {
   form.trackCondition = option;
 };
 
-const handleBetTypeSelected = (option: any) => {
-  bet.betType = option;
+const handleBetTypeSelected = (betTypeId: number) => {
+  bet.betTypeId = betTypeId;
 };
 
 const handleAddBet = () => {
   const newBet = { ...bet };
   bets.value.push(newBet);
 
-  bet.betType = null;
+  bet.betTypeId = null;
   bet.ticket = null;
   bet.amount = null;
 };
