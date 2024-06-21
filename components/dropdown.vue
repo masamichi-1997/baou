@@ -3,7 +3,7 @@
     <button @click="isOpen = !isOpen">
       {{ selectedOption ? selectedOption.label : placeholder }}
     </button>
-    
+
     <ul v-if="isOpen">
       <li
         v-for="(option, index) in options"
@@ -18,8 +18,8 @@
 
 <script setup lang="ts">
 interface Option {
-  label: string,
-  value: string | number,
+  label: string;
+  value: string | number;
 }
 
 const emits = defineEmits();
@@ -31,6 +31,7 @@ const { placeholder, options } = defineProps({
   options: {
     type: Array as () => Option[],
     required: true,
+    default: [],
   },
 });
 
