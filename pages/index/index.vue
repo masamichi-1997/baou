@@ -87,7 +87,7 @@ const bets = ref([]);
 const form = reactive({
   raceTrackId: null,
   distance: null,
-  course: null,
+  cource: null,
   trackCondition: null,
   bets: bets.value,
 });
@@ -105,7 +105,7 @@ const handleRaceTrackSelected = (option: any) => {
 };
 
 const handleCourseSelected = (option: any) => {
-  form.course = option;
+  form.cource = option;
 };
 
 const handleTrackConditionSelected = (option: any) => {
@@ -123,7 +123,6 @@ const handleAddBet = () => {
   bet.betType = null;
   bet.ticket = null;
   bet.amount = null;
-  console.log(bets.value)
 };
 
 const getBetTypeLabel = (betTypeId: number) => {
@@ -147,12 +146,11 @@ const handleAddRecord = async () => {
     method: "post",
     body: {
       form,
-    }
-  })
+    },
+  });
 
-  console.log(data)
-  return data
-}
+  return data;
+};
 
 onMounted(() => {
   fetchRaceTrackAndBetType();
