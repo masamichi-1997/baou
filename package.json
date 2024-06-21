@@ -14,11 +14,13 @@
     "@techmely/reset-css": "^1.0.4",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.2",
+    "drizzle-zod": "^0.5.1",
     "next-auth": "4.21.1",
     "nuxt": "^3.12.1",
     "postgres": "^3.4.4",
     "vue": "^3.4.27",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.3.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@sidebase/nuxt-auth": "^0.7.2",
