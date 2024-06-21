@@ -12,7 +12,7 @@
     </div>
     <div>
       <h3>レースの距離を入力してください</h3>
-      <input type="number" v-model="form.distance" />
+      <input type="number" v-model="form.raceDetail.distance" />
     </div>
     <div>
       <h3>コースを選択してください</h3>
@@ -29,9 +29,9 @@
     <button popovertarget="betModal">馬券を追加</button>
 
     <ul>
-      <template v-for="(bet, index) in bets" :key="index">
+      <template v-for="(bet, index) in form.bets" :key="index">
         <li>
-          <p>方式 : {{ getBetTypeLabel(bet.betType) }}</p>
+          <p>方式 : {{ getBetTypeLabel(bet.betTypeId) }}</p>
           <p>点数 : {{ bet.ticket }}</p>
           <p>金額 : {{ bet.amount }}</p>
         </li>
@@ -85,11 +85,13 @@ const trackConditions = trackConditionEnum.enumValues.map((val) =>
 const bets = ref([]);
 
 const form = reactive({
-  raceTrackId: null,
-  distance: null,
-  cource: null,
-  trackCondition: null,
-  bets: bets.value,
+  raceDetail: {
+    raceTrackId: null,
+    distance: null,
+    cource: null,
+    trackCondition: null,
+  },
+  bets: [],
 });
 
 const bet = reactive({
@@ -100,25 +102,25 @@ const bet = reactive({
 });
 
 const handleRaceTrackSelected = (option: any) => {
-  form.raceTrackId = option;
+  form.raceDetail.raceTrackId = option;
   bet.raceTrackId = option;
 };
 
 const handleCourseSelected = (option: any) => {
-  form.cource = option;
+  form.raceDetail.cource = option;
 };
 
 const handleTrackConditionSelected = (option: any) => {
-  form.trackCondition = option;
+  form.raceDetail.trackCondition = option;
 };
 
-const handleBetTypeSelected = (betTypeId: number) => {
-  bet.betTypeId = betTypeId;
+const handleBetTypeSelected = (option: any) => {
+  bet.betTypeId = option;
 };
 
 const handleAddBet = () => {
   const newBet = { ...bet };
-  bets.value.push(newBet);
+  form.bets.push(newBet);
 
   bet.betTypeId = null;
   bet.ticket = null;
@@ -142,6 +144,7 @@ const fetchRaceTrackAndBetType = async (): Promise<void> => {
 };
 
 const handleAddRecord = async () => {
+  console.log(form);
   const data = await $fetch("/api/recording-ticket/", {
     method: "post",
     body: {
