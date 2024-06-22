@@ -4,7 +4,6 @@ export default defineNuxtConfig({
   css: ["@techmely/reset-css", "~/assets/scss/main.scss"],
   modules: ["nuxt-icon", "@pinia/nuxt", "@sidebase/nuxt-auth"],
   auth: {
-    baseURL: process.env.AUTH_ORIGIN,
     globalAppMiddleware: true,
     provider: {
       type: "authjs",
