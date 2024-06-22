@@ -8,10 +8,12 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const courceEnum = pgEnum("cource", ["芝", "ダート"]);
+export const courceSchema = z.enum(courceEnum.enumValues);
+export type courceType = z.infer<typeof courceSchema>;
 
 export const trackConditionEnum = pgEnum("track_condition", [
   "良",
@@ -19,6 +21,8 @@ export const trackConditionEnum = pgEnum("track_condition", [
   "重",
   "不良",
 ]);
+export const trackConditionSchema = z.enum(trackConditionEnum.enumValues);
+export type trackConditionType = z.infer<typeof trackConditionSchema>;
 
 export const raceTrackTable = pgTable("race_track", {
   id: serial("id").primaryKey(),
@@ -66,6 +70,16 @@ export const betTypeTable = pgTable("bet_type", {
     .notNull()
     .default(sql`now()`),
 });
+
+export const selectBetTypeSchema = createSelectSchema(betTypeTable).pick({
+  id: true,
+  name: true,
+});
+
+export type BetOptionType = {
+  label: z.infer<typeof selectBetTypeSchema.shape.name>;
+  value: z.infer<typeof selectBetTypeSchema.shape.id>;
+};
 
 export const betTable = pgTable("bet", {
   id: serial("id").primaryKey(),
