@@ -6,6 +6,11 @@ export default NuxtAuthHandler({
   pages: {
     signIn: "/login", // ログインページ
   },
+  callbacks: {
+    async redirect({ baseUrl }) {
+      return baseUrl
+    },
+  },
   providers: [
     // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
     GithubProvider.default({
